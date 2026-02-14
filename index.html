@@ -12,75 +12,60 @@
 <header class="site-header">
     <div class="header-content">
         <h1>AI, Economics & Global Affairs</h1>
-        <p>
-            Artificial Intelligence • Computer Science • Economics • International Relations
-        </p>
+        <p>Artificial Intelligence • Computer Science • Economics • IR</p>
     </div>
 </header>
 
-<!-- ================= DAILY POLICY & ECONOMIC NEWS ================= -->
+<!-- ================= DAILY NEWS ================= -->
 <section>
     <h2 class="section-title">Daily Policy & Economic News</h2>
-    <p class="section-desc">
-        Key updates from RBI, PIB, SEBI and global economic institutions.
-    </p>
+    <div class="filter-bar">
+        <button data-category="all" class="active">All</button>
+        <button data-category="economics">Economics</button>
+        <button data-category="ai">AI</button>
+        <button data-category="cs">Computer Science</button>
+        <button data-category="ir">International Relations</button>
+    </div>
     <div id="news-container"></div>
 </section>
 
-<!-- ================= ECONOMIC & AI ANALYSIS ================= -->
+<!-- ================= ANALYSIS ================= -->
 <section>
     <h2 class="section-title">Economic & AI-Based Analysis</h2>
-    <p class="section-desc">
-        Data-driven economic interpretation, AI-assisted insights, and policy implications.
-    </p>
     <div id="analysis-container"></div>
 </section>
 
-<!-- ================= AI & COMPUTER SCIENCE PROJECTS ================= -->
-<section>
-    <h2 class="section-title">AI & Computer Science Projects</h2>
-    <p class="section-desc">
-        Applied AI, data analysis, automation bots, and computational economics projects.
-    </p>
-    <div id="projects-container">
-        <!-- future: ai_projects.json -->
-    </div>
-</section>
-
-<!-- ================= RESEARCH & INTERNATIONAL RELATIONS ================= -->
+<!-- ================= RESEARCH ================= -->
 <section>
     <h2 class="section-title">Research & International Relations</h2>
-    <p class="section-desc">
-        Research papers, summaries, and analysis on global economy, geopolitics, and IR.
-    </p>
     <div id="research-container"></div>
 </section>
 
-<!-- ================= CONNECT ================= -->
-<section class="contact-section">
-    <h2 class="section-title">Connect & Contact</h2>
-
-    <div class="contact-links">
-        <a href="https://github.com/vipin-123-rgb" target="_blank">GitHub</a>
-
-        <a href="https://twitter.com/tr41824110" target="_blank">Twitter (X)</a>
-
-        <a href="https://www.linkedin.com/in/vipin-tripathi-09748a17a/" target="_blank">
-            LinkedIn
-        </a>
-
-        <!-- Email rendered safely via JS -->
-        <span id="email"></span>
-    </div>
-</section>
-
 <!-- ================= FOOTER ================= -->
-<footer>
-    <p>
-        Vipin Tripathi <br>
-        M.A. Economics | M.Sc. Computer Science <br>
-        Interests: AI in Economics, Monetary Policy, Global Political Economy, IR
-    </p>
+<footer class="site-footer">
+    <div class="footer-wrapper">
+
+        <!-- LEFT -->
+        <div class="footer-left">
+            <p>
+                <strong>Vipin Tripathi</strong><br>
+                M.A. Economics | M.Sc. Computer Science<br>
+                Interests: AI in Economics, Monetary Policy, Global Political Economy, IR
+            </p>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="footer-right">
+            <h4>Connect</h4>
+            <a href="https://github.com/vipin-123-rgb" target="_blank">GitHub</a>
+            <a href="https://twitter.com/tr41824110" target="_blank">Twitter (X)</a>
+            <a href="https://www.linkedin.com/in/vipin-tripathi-09748a17a/" target="_blank">
+                LinkedIn
+            </a>
+            <span id="email"></span>
+        </div>
+
+    </div>
 </footer>
 
 <script src="./js/main.js"></script>
