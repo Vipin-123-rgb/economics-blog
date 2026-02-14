@@ -2,7 +2,7 @@ let blogs = [];
 let currentPage = 1;
 const perPage = 3;
 
-fetch("./data/economics.json")
+fetch("../data/economics.json")
     .then(res => res.json())
     .then(data => {
         blogs = data;
