@@ -53,8 +53,9 @@ loadData(
 );
 
 /* ================= EMAIL PROTECTION ================= */
+/* ================= EMAIL PROTECTION ================= */
 (function () {
-    const user = "vipintripathi";
+    const user = "tripathivipin99";
     const domain = "gmail.com";
     const emailEl = document.getElementById("email");
 
@@ -64,3 +65,4 @@ loadData(
         </a>`;
     }
 })();
+
