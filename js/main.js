@@ -147,3 +147,21 @@ document.getElementById("global-search")?.addEventListener("input", e => {
             card.innerText.toLowerCase().includes(q) ? "block" : "none";
     });
 });
+
+
+fetch("./data/posts.json")
+  .then(res => res.json())
+  .then(items => {
+    const container = document.getElementById("posts-container");
+    items.slice(0, 2).forEach(item => {
+      const div = document.createElement("div");
+      div.className = "blog-card";
+      div.innerHTML = `
+        <h3>${item.title}</h3>
+        <small>${item.source}</small>
+        <p>${item.summary}</p>
+        <a href="${item.link}" target="_blank">Read source</a>
+      `;
+      container.appendChild(div);
+    });
+  });
