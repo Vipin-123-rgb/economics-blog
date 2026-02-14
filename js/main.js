@@ -10,10 +10,11 @@ fetch("posts/posts.json")
       div.innerHTML = `
         <h3>${post.title}</h3>
         <small>${post.date}</small>
-        <p><b>Summary:</b> ${post.summary}</p>
+        <p><strong>Summary:</strong> ${post.summary}</p>
         <p>${post.analysis}</p>
       `;
 
       container.appendChild(div);
     });
-  });
+  })
+  .catch(err => console.error(err));
