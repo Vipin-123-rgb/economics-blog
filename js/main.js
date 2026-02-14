@@ -4,36 +4,45 @@
 let allNews = [];
 
 /* =====================================================
-   GENERIC LOADER (Analysis, Research, Economics Blogs)
+   SAFE JSON LOADER (Reusable)
 ===================================================== */
-function loadData(file, containerId, template) {
+function loadData(file, containerId, template, limit = null) {
     fetch(`./data/${file}`)
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error(`${file} not found`);
+            return res.json();
+        })
         .then(items => {
             const container = document.getElementById(containerId);
             if (!container) return;
 
             container.innerHTML = "";
-            items.forEach(item => {
+
+            const data = limit ? items.slice(0, limit) : items;
+
+            data.forEach(item => {
                 const div = document.createElement("div");
                 div.className = "blog-card";
                 div.innerHTML = template(item);
                 container.appendChild(div);
             });
         })
-        .catch(err => console.error("Error loading", file, err));
+        .catch(err => console.error(`Error loading ${file}:`, err));
 }
 
 /* =====================================================
    DAILY POLICY & ECONOMIC NEWS (WITH FILTERS)
 ===================================================== */
 fetch("./data/news.json")
-    .then(res => res.json())
+    .then(res => {
+        if (!res.ok) throw new Error("news.json not found");
+        return res.json();
+    })
     .then(data => {
         allNews = data;
         renderNews("all");
     })
-    .catch(err => console.error("Error loading news", err));
+    .catch(err => console.error("Error loading news:", err));
 
 function renderNews(category) {
     const container = document.getElementById("news-container");
@@ -56,13 +65,10 @@ function renderNews(category) {
                         ${item.date ? new Date(item.date).toDateString() : ""}
                     </span>
                 </div>
-
                 <h3>${item.title}</h3>
                 <small>${item.source}</small>
                 <p>${item.summary}</p>
-                <a href="${item.link}" target="_blank">
-                    Read official source →
-                </a>
+                <a href="${item.link}" target="_blank">Read official source →</a>
             `;
 
             container.appendChild(div);
@@ -97,7 +103,7 @@ loadData(
 );
 
 /* =====================================================
-   ECONOMICS BLOGS (FULL ARTICLES)
+   ECONOMICS BLOGS (HOMEPAGE PREVIEW)
 ===================================================== */
 loadData(
     "economics.json",
@@ -106,8 +112,8 @@ loadData(
         <h3>${item.title}</h3>
         <small>${item.date} | ${item.author}</small>
         <p><strong>Summary:</strong> ${item.summary}</p>
-        <p>${item.content.replace(/\n/g, "<br><br>")}</p>
-    `
+    `,
+    2
 );
 
 /* =====================================================
@@ -125,6 +131,45 @@ loadData(
 );
 
 /* =====================================================
+   DAILY ECONOMICS BRIEF (AUTO)
+===================================================== */
+fetch("./data/posts.json")
+    .then(res => {
+        if (!res.ok) throw new Error("posts.json not found");
+        return res.json();
+    })
+    .then(items => {
+        const container = document.getElementById("posts-container");
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        items.slice(0, 2).forEach(item => {
+            const div = document.createElement("div");
+            div.className = "blog-card";
+            div.innerHTML = `
+                <h3>${item.title}</h3>
+                <small>${item.source} | ${item.date}</small>
+                <p>${item.summary}</p>
+                <a href="${item.link}" target="_blank">Read source</a>
+            `;
+            container.appendChild(div);
+        });
+    })
+    .catch(err => console.error("Daily brief error:", err));
+
+/* =====================================================
+   GLOBAL SEARCH (ALL CARDS)
+===================================================== */
+document.getElementById("global-search")?.addEventListener("input", e => {
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll(".blog-card").forEach(card => {
+        card.style.display =
+            card.innerText.toLowerCase().includes(q) ? "block" : "none";
+    });
+});
+
+/* =====================================================
    EMAIL PROTECTION (ANTI-SPAM)
 ===================================================== */
 (function () {
@@ -138,30 +183,3 @@ loadData(
         </a>`;
     }
 })();
-
-
-document.getElementById("global-search")?.addEventListener("input", e => {
-    const q = e.target.value.toLowerCase();
-    document.querySelectorAll(".blog-card").forEach(card => {
-        card.style.display =
-            card.innerText.toLowerCase().includes(q) ? "block" : "none";
-    });
-});
-
-
-fetch("./data/posts.json")
-  .then(res => res.json())
-  .then(items => {
-    const container = document.getElementById("posts-container");
-    items.slice(0, 2).forEach(item => {
-      const div = document.createElement("div");
-      div.className = "blog-card";
-      div.innerHTML = `
-        <h3>${item.title}</h3>
-        <small>${item.source}</small>
-        <p>${item.summary}</p>
-        <a href="${item.link}" target="_blank">Read source</a>
-      `;
-      container.appendChild(div);
-    });
-  });
