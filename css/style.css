@@ -228,3 +228,16 @@ section {
         flex-direction: column;
     }
 }
+
+
+.source-box {
+    background: #f1f5f9;
+    padding: 12px;
+    border-left: 4px solid #0a2a43;
+    margin-top: 15px;
+    font-size: 0.85rem;
+}
+
+.source-box ul {
+    margin: 8px 0 0 18px;
+}
