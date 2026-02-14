@@ -138,3 +138,12 @@ loadData(
         </a>`;
     }
 })();
+
+
+document.getElementById("global-search")?.addEventListener("input", e => {
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll(".blog-card").forEach(card => {
+        card.style.display =
+            card.innerText.toLowerCase().includes(q) ? "block" : "none";
+    });
+});
